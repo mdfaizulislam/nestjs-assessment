@@ -1,11 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Employee } from './entities/employee.entity';
-import { Constants } from 'src/constants';
 
 @Injectable()
 export class EmployeesService {
   constructor(
-    @Inject(Constants.EMPLOYEE_RIPOSITORY)
+    @Inject('EMPLOYEE_RIPOSITORY')
     private employeesRepository: typeof Employee,
   ) {}
 
@@ -22,11 +21,12 @@ export class EmployeesService {
     });
   }
 
-  async findAllByPositionId(positionId): Promise<Employee[]> {
-    return this.employeesRepository.findAll<Employee>({
+   async findAllByPositionId(positionId): Promise<Employee[]> {
+    return this.employeesRepository.findAll({
       where: {
         positionId
       },
-      attributes: ["id", "name", "positionId", "positionName"]});
+      attributes: ["id", "name", "positionId", "positionName"]
+    });
   }
 }

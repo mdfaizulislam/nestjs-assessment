@@ -8,6 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
+import { Employee } from './entities/employee.entity';
 
 
 @Controller('employees')
@@ -21,6 +22,8 @@ export class EmployeesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.employeesService.findOne(+id);
+    let emp = this.employeesService.findOne(+id);
+    console.log("emp ", emp instanceof Employee);
+    return emp;
   }
 }

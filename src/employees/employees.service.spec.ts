@@ -13,6 +13,11 @@ describe('EmployeesService', () => {
   });
 
   it('should be defined', () => {
+    console.log("empS ", service);
     expect(service).toBeDefined();
+  });
+
+  it ('should return employee by id 1', () => {
+    expect(service.findOne(1)).toBeTruthy();
   });
 });
