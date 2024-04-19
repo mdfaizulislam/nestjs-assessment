@@ -1,10 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Employee } from './entities/employee.entity';
+import { Constants } from 'src/constants';
 
 @Injectable()
 export class EmployeesService {
   constructor(
-    @Inject('EMPLOYEE_RIPOSITORY')
+    @Inject(Constants.EMPLOYEE_RIPOSITORY)
     private employeesRepository: typeof Employee,
   ) {}
 

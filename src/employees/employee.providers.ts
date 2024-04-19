@@ -1,8 +1,9 @@
+import { Constants } from 'src/constants';
 import { Employee } from './entities/employee.entity';
 
 export const employeesProviders = [
   {
-    provide: 'EMPLOYEE_RIPOSITORY',
+    provide: Constants.EMPLOYEE_RIPOSITORY,
     useValue: Employee,
   },
 ];
