@@ -21,4 +21,12 @@ export class EmployeesService {
       attributes: ["id", "name", "positionId", "positionName"]
     });
   }
+
+  async findAllByPositionId(positionId): Promise<Employee[]> {
+    return this.employeesRepository.findAll<Employee>({
+      where: {
+        positionId
+      },
+      attributes: ["id", "name", "positionId", "positionName"]});
+  }
 }
