@@ -48,8 +48,8 @@ export class LoggerMiddleware implements NestMiddleware {
 
         const basicRequestMetaInfo = {
           method,
-          baseUrl,
-          url,
+          // baseUrl,
+          // url,
           originalUrl,
           ip,
           statusCode,

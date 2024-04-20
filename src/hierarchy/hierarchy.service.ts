@@ -1,50 +1,61 @@
-import {Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { EmployeeService } from 'src/employees/employee.service';
 import { Employee } from 'src/employees/entities/employee.entity';
 
 @Injectable()
 export class HierarchyService {
-  constructor(private employeeService: EmployeeService) {}
+  private logger: Logger;
+  constructor(private employeeService: EmployeeService) {
+    this.logger = new Logger(HierarchyService.name);
+  }
   findOne(id: number) {
-    let map = new Map<number, object[]>();
+    try {
+      let map = new Map<number, object[]>();
 
-    let solve =  async (employeeId): Promise<object[]> => {
-      let employee: Employee = await this.employeeService.findOne(employeeId);
-      
-      if (!(employee instanceof Employee)) return [];
+      let findHierarchy = async (employeeId): Promise<object[]> => {
+        let employee: Employee = await this.employeeService.findOne(employeeId);
 
-      // find lower position id
-      let positionId: number = employee.positionId + 1;
+        if (!(employee instanceof Employee)) return [];
 
-      // check either do we have result in map or not, if we do, return result
-      if (map.has(positionId)) return map.get(positionId);
+        // find lower position id
+        let positionId: number = employee.positionId + 1;
 
-      // we don't have result, so solve it first
-      let juniorEmployees: Employee[] = await this.employeeService.findAllByPositionId(positionId);
-      let hierarches: object[] = this.getHierarchyList(juniorEmployees);
+        // check either do we have result in map or not, if we do, return result
+        if (map.has(positionId)) return map.get(positionId);
 
-      // find hierarchy of children
-      for(let hierarchy of hierarches)
-      {
-        let children: object[] = await solve(hierarchy['id']);
-        hierarchy['child'] = children.length > 0 ? children : null;
-      }
+        // we don't have result, so solve it first
+        let juniorEmployees: Employee[] =
+          await this.employeeService.findAllByPositionId(positionId);
+        let hierarches: object[] = this.getFormattedEmployees(juniorEmployees);
 
-      // save in map
-      map.set(positionId, hierarches);
+        // find hierarchy of children
+        for (let hierarchy of hierarches) {
+          let children: object[] = await findHierarchy(hierarchy['id']);
+          hierarchy['child'] = children.length > 0 ? children : null;
+        }
 
-      // now return
-      return hierarches;
-    };
+        // save in map
+        map.set(positionId, hierarches);
 
-    return solve(id);
+        // now return
+        return hierarches;
+      };
+
+      return findHierarchy(id);
+    } catch (error) {
+      this.logger.error('Error on finding hierarchy of employee id ' + id, error);
+    }
   }
 
-  private getHierarchyList(employees: Employee[]): object[]
-  {
+  private getFormattedEmployees(employees: Employee[]): object[] {
     let hierarches: object[] = [];
     employees.forEach((emp) => {
-      hierarches.push({id: emp.id, name: emp.name, positionId: emp.positionId, positionName: emp.positionName});
+      hierarches.push({
+        id: emp.id,
+        name: emp.name,
+        positionId: emp.positionId,
+        positionName: emp.positionName,
+      });
     });
     return hierarches;
   }

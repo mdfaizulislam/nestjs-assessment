@@ -1,23 +1,23 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EmployeeService } from './employee.service';
-import { EmployeesController } from './employee.controller';
+import { EmployeeController } from './employee.controller';
 import { mockData, mockEmployeeService } from './employee.service.spec';
 
 describe('EmployeeController', () => {
   
 
-  let controller: EmployeesController;
+  let controller: EmployeeController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [EmployeesController],
+      controllers: [EmployeeController],
       providers: [EmployeeService],
     })
       .overrideProvider(EmployeeService)
       .useValue(mockEmployeeService)
       .compile();
 
-    controller = module.get<EmployeesController>(EmployeesController);
+    controller = module.get<EmployeeController>(EmployeeController);
   });
 
   it('should be defined', () => {

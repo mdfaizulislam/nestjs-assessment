@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Logger } from '@nestjs/common';
 import { HierarchyService } from './hierarchy.service';
 
 @Controller('hierarchy')
 export class HierarchyController {
-  constructor(private readonly hierarchyService: HierarchyService) {}
+  // private logger: Logger;
+  constructor(private readonly hierarchyService: HierarchyService) {
+    // this.logger = new Logger(HierarchyController.name);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
