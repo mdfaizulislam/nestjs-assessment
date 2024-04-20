@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HierarchyService } from './hierarchy.service';
 import { EmployeesService } from 'src/employees/employees.service';
+import { mockEmployeeService } from 'src/employees/employees.service.spec';
 
 describe('HierarchyService', () => {
   let service: HierarchyService;
@@ -13,11 +14,7 @@ describe('HierarchyService', () => {
         HierarchyService,
         {
           provide: EmployeesService,
-          useValue: {
-            findAll: jest.fn(),
-            findOne: jest.fn(),
-            findAllByPositionId: jest.fn()
-          },
+          useValue: mockEmployeeService,
         },
       ],
     }).compile();
