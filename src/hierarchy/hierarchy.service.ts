@@ -1,11 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {Inject, Injectable } from '@nestjs/common';
 import { EmployeesService } from 'src/employees/employees.service';
 import { Employee } from 'src/employees/entities/employee.entity';
 
 @Injectable()
 export class HierarchyService {
-  @Inject(EmployeesService)
-  private readonly employeeService: EmployeesService;
+  constructor(private employeeService: EmployeesService) {}
   findOne(id: number) {
     let map = new Map<number, object[]>();
 

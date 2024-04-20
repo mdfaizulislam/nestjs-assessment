@@ -1,11 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EmployeesService } from './employees.service';
-import { DatabaseModule } from 'src/database.providers';
-import { employeesProviders } from './employee.providers';
-import { EmployeesModule } from './employees.module';
-import { getModelToken } from '@nestjs/sequelize';
 import { Employee } from './entities/employee.entity';
 import { Repository } from 'sequelize-typescript';
+import { EMPLOYEE_RIPOSITORY } from './employees.constants';
 
 describe('EmployeesService', () => {
   const mockData = [
@@ -113,7 +110,6 @@ describe('EmployeesService', () => {
     },
   ];
 
-  const employeesRepositoryToken = 'EMPLOYEE_RIPOSITORY'
   let service: EmployeesService;
   let employeesRepository: Repository<Employee>;
   beforeEach(async () => {
@@ -121,7 +117,7 @@ describe('EmployeesService', () => {
       providers: [
         EmployeesService,
         {
-          provide: employeesRepositoryToken,
+          provide: EMPLOYEE_RIPOSITORY,
           useValue: {
             findAll: jest.fn().mockImplementation(() => mockData),
             findOne: jest.fn().mockImplementation((d) => 
@@ -142,7 +138,7 @@ describe('EmployeesService', () => {
     }).compile();
 
     service = module.get<EmployeesService>(EmployeesService);
-    employeesRepository = module.get<Repository<Employee>>(employeesRepositoryToken);
+    employeesRepository = module.get<Repository<Employee>>(EMPLOYEE_RIPOSITORY);
   });
 
   it('service should be defined', () => {
