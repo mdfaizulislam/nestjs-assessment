@@ -14,15 +14,8 @@ export class HierarchyService {
       
       if (!(employee instanceof Employee)) return [];
 
-
       // find lower position id
       let positionId: number = employee.positionId + 1;
-
-
-      if (positionId > 4 )
-        return [];
-
-        console.log("positionId: ", positionId);
 
       // check either do we have result in map or not, if we do, return result
       if (map.has(positionId)) return map.get(positionId);
@@ -30,8 +23,8 @@ export class HierarchyService {
       // we don't have result, so solve it first
       let juniorEmployees: Employee[] = await this.employeeService.findAllByPositionId(positionId);
       let hierarches: object[] = this.getHierarchyList(juniorEmployees);
-      console.log("hierarches: ", hierarches);
 
+      // find hierarchy of children
       for(let hierarchy of hierarches)
       {
         let children: object[] = await solve(hierarchy['id']);
