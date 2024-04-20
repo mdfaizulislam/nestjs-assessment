@@ -1,23 +1,163 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EmployeesService } from './employees.service';
+import { DatabaseModule } from 'src/database.providers';
+import { employeesProviders } from './employee.providers';
+import { EmployeesModule } from './employees.module';
+import { getModelToken } from '@nestjs/sequelize';
+import { Employee } from './entities/employee.entity';
+import { Repository } from 'sequelize-typescript';
 
 describe('EmployeesService', () => {
-  let service: EmployeesService;
+  const mockData = [
+    {
+      id: 1,
+      name: 'Name CTO',
+      positionId: 1,
+      PositionName: 'CTO',
+    },
+    {
+      id: 2,
+      name: 'Name SSE 1',
+      positionId: 2,
+      PositionName: 'Senior Software Engineer',
+    },
+    {
+      id: 3,
+      name: 'Name SSE 2',
+      positionId: 2,
+      PositionName: 'Senior Software Engineer',
+    },
+    {
+      id: 4,
+      name: 'Name SSE 3',
+      positionId: 2,
+      PositionName: 'Senior Software Engineer',
+    },
+    {
+      id: 5,
+      name: 'Name SSE 4',
+      positionId: 2,
+      PositionName: 'Senior Software Engineer',
+    },
+    {
+      id: 6,
+      name: 'Name SE 1',
+      positionId: 3,
+      PositionName: 'Software Engineer',
+    },
+    {
+      id: 7,
+      name: 'Name SE 2',
+      positionId: 3,
+      PositionName: 'Software Engineer',
+    },
+    {
+      id: 8,
+      name: 'Name SE 3',
+      positionId: 3,
+      PositionName: 'Software Engineer',
+    },
+    {
+      id: 9,
+      name: 'Name SE 4',
+      positionId: 3,
+      PositionName: 'Software Engineer',
+    },
+    {
+      id: 10,
+      name: 'Name SE 5',
+      positionId: 3,
+      PositionName: 'Software Engineer',
+    },
+    {
+      id: 11,
+      name: 'Name JSE 1',
+      positionId: 4,
+      PositionName: 'Junior Software Engineer',
+    },
+    {
+      id: 12,
+      name: 'Name JSE 2',
+      positionId: 4,
+      PositionName: 'Junior Software Engineer',
+    },
+    {
+      id: 13,
+      name: 'Name JSE 3',
+      positionId: 4,
+      PositionName: 'Junior Software Engineer',
+    },
+    {
+      id: 14,
+      name: 'Name JSE 4',
+      positionId: 4,
+      PositionName: 'Junior Software Engineer',
+    },
+    {
+      id: 15,
+      name: 'Name JSE 5',
+      positionId: 4,
+      PositionName: 'Junior Software Engineer',
+    },
+    {
+      id: 16,
+      name: 'Name JSE 6',
+      positionId: 4,
+      PositionName: 'Junior Software Engineer',
+    },
+    {
+      id: 17,
+      name: 'Name JSE 7',
+      positionId: 4,
+      PositionName: 'Junior Software Engineer',
+    },
+  ];
 
+  const employeesRepositoryToken = 'EMPLOYEE_RIPOSITORY'
+  let service: EmployeesService;
+  let employeesRepository: Repository<Employee>;
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [EmployeesService],
+      providers: [
+        EmployeesService,
+        {
+          provide: employeesRepositoryToken,
+          useValue: {
+            findAll: jest.fn().mockImplementation(() => mockData),
+            findOne: jest.fn().mockImplementation((d) => 
+            {
+              let key = d['where']['id'];
+              let data = mockData.find((md) => md.id == key);              
+              return data;
+            }),
+            findAllByPositionId: jest.fn().mockImplementation((d) => 
+            {
+              let key = d['where']['positionId'];
+              let data = mockData.filter((md) => md.positionId == key);              
+              return data;
+            }),
+          },
+        },
+      ],
     }).compile();
 
     service = module.get<EmployeesService>(EmployeesService);
+    employeesRepository = module.get<Repository<Employee>>(employeesRepositoryToken);
   });
 
-  it('should be defined', () => {
-    console.log("empS ", service);
+  it('service should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  it ('should return employee by id 1', () => {
-    expect(service.findOne(1)).toBeTruthy();
+  it('employeesRepository should be defined', () => {
+    expect(employeesRepository).toBeDefined();
+  });
+
+  it('should return all employees', () => {
+    expect(service.findAll()).toBeTruthy();
+  });
+
+  it('should return all employees whose position id 2', () => {
+    expect(service.findAllByPositionId(2)).toBeTruthy();
   });
 });
