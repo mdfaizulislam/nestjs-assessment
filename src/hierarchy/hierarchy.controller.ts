@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { HierarchyService } from './hierarchy.service';
-import { EmployeeService } from 'src/employees/employee.service';
 
 @Controller('hierarchy')
 export class HierarchyController {
