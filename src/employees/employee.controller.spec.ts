@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { EmployeesService } from './employees.service';
-import { EmployeesController } from './employees.controller';
-import { mockData, mockEmployeeService } from './employees.service.spec';
+import { EmployeeService } from './employee.service';
+import { EmployeesController } from './employee.controller';
+import { mockData, mockEmployeeService } from './employee.service.spec';
 
-describe('EmployeesController', () => {
+describe('EmployeeController', () => {
   
 
   let controller: EmployeesController;
@@ -11,9 +11,9 @@ describe('EmployeesController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [EmployeesController],
-      providers: [EmployeesService],
+      providers: [EmployeeService],
     })
-      .overrideProvider(EmployeesService)
+      .overrideProvider(EmployeeService)
       .useValue(mockEmployeeService)
       .compile();
 

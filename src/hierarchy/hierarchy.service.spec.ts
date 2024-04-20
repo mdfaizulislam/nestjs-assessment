@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HierarchyService } from './hierarchy.service';
-import { EmployeesService } from 'src/employees/employees.service';
-import { mockEmployeeService } from 'src/employees/employees.service.spec';
+import { EmployeeService } from 'src/employees/employee.service';
+import { mockEmployeeService } from 'src/employees/employee.service.spec';
 
 describe('HierarchyService', () => {
   let service: HierarchyService;
-  let employeeService: EmployeesService;
+  let employeeService: EmployeeService;
 
   beforeEach(async () => {
 
@@ -13,14 +13,14 @@ describe('HierarchyService', () => {
       providers: [
         HierarchyService,
         {
-          provide: EmployeesService,
+          provide: EmployeeService,
           useValue: mockEmployeeService,
         },
       ],
     }).compile();
 
     service = module.get<HierarchyService>(HierarchyService);
-    employeeService = module.get<EmployeesService>(EmployeesService);
+    employeeService = module.get<EmployeeService>(EmployeeService);
   });
 
   it('should be defined', () => {

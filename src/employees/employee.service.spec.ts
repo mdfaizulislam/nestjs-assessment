@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { EmployeesService } from './employees.service';
+import { EmployeeService } from './employee.service';
 import { Employee } from './entities/employee.entity';
 import { Repository } from 'sequelize-typescript';
-import { EMPLOYEE_RIPOSITORY } from './employees.constants';
+import { EMPLOYEE_RIPOSITORY } from './employee.constants';
 
 export const mockData = [
   {
@@ -117,12 +117,12 @@ export const mockEmployeeService = {
 
 describe('EmployeesService', () => {
 
-  let service: EmployeesService;
+  let service: EmployeeService;
   let employeesRepository: Repository<Employee>;
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        EmployeesService,
+        EmployeeService,
         {
           provide: EMPLOYEE_RIPOSITORY,
           useValue: mockEmployeeService,
@@ -130,7 +130,7 @@ describe('EmployeesService', () => {
       ],
     }).compile();
 
-    service = module.get<EmployeesService>(EmployeesService);
+    service = module.get<EmployeeService>(EmployeeService);
     employeesRepository = module.get<Repository<Employee>>(EMPLOYEE_RIPOSITORY);
   });
 

@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HierarchyController } from './hierarchy.controller';
 import { HierarchyService } from './hierarchy.service';
-import { EmployeesService } from 'src/employees/employees.service';
-import { mockEmployeeService } from 'src/employees/employees.service.spec';
+import { EmployeeService } from 'src/employees/employee.service';
+import { mockEmployeeService } from 'src/employees/employee.service.spec';
 
 describe('HierarchyController', () => {
   let controller: HierarchyController;
@@ -10,9 +10,9 @@ describe('HierarchyController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [HierarchyController],
-      providers: [HierarchyService, EmployeesService],
+      providers: [HierarchyService, EmployeeService],
     })
-    .overrideProvider(EmployeesService)
+    .overrideProvider(EmployeeService)
     .useValue(mockEmployeeService)
     .compile();
 

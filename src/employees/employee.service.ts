@@ -1,20 +1,20 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Employee } from './entities/employee.entity';
-import { EMPLOYEE_RIPOSITORY } from './employees.constants';
+import { EMPLOYEE_RIPOSITORY } from './employee.constants';
 
 @Injectable()
-export class EmployeesService {
+export class EmployeeService {
   constructor(
     @Inject(EMPLOYEE_RIPOSITORY)
-    private employeesRepository: typeof Employee,
+    private employeeRepository: typeof Employee,
   ) {}
 
   async findAll(): Promise<Employee[]> {
-    return this.employeesRepository.findAll<Employee>({attributes: ["id", "name", "positionId", "positionName"]});
+    return this.employeeRepository.findAll<Employee>({attributes: ["id", "name", "positionId", "positionName"]});
   }
 
   findOne(id: number) {
-    return this.employeesRepository.findOne({
+    return this.employeeRepository.findOne({
       where: {
         id,
       },
@@ -23,7 +23,7 @@ export class EmployeesService {
   }
 
    async findAllByPositionId(positionId): Promise<Employee[]> {
-    return this.employeesRepository.findAll({
+    return this.employeeRepository.findAll({
       where: {
         positionId
       },
