@@ -21,7 +21,7 @@ export class EmployeesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     let emp = this.employeesService.findOne(+id);
     console.log("emp ", emp instanceof Employee);
     return emp;
