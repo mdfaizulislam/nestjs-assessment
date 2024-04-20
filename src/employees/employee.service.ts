@@ -13,7 +13,12 @@ export class EmployeeService {
   }
 
   async findAll(): Promise<Employee[]> {
-    return this.employeeRepository.findAll<Employee>({attributes: ["id", "name", "positionId", "positionName"]});
+    try {
+      return this.employeeRepository.findAll<Employee>({attributes: ["id", "name", "positionId", "positionName"]});
+    } catch (error) {
+      this.logger.error('Error on fetching all employees', error);
+      return [];
+    }
   }
 
   findOne(id: number) {
@@ -26,11 +31,16 @@ export class EmployeeService {
   }
 
    async findAllByPositionId(positionId): Promise<Employee[]> {
-    return this.employeeRepository.findAll({
-      where: {
-        positionId
-      },
-      attributes: ["id", "name", "positionId", "positionName"]
-    });
+    try {
+      return this.employeeRepository.findAll({
+        where: {
+          positionId
+        },
+        attributes: ["id", "name", "positionId", "positionName"]
+      });
+    } catch (error) {
+      this.logger.error(`Error on fetching all employees where the positionId ${positionId}`, error);
+      return [];
+    }
   }
 }
