@@ -1,6 +1,6 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { EmployeeService } from 'src/employees/employee.service';
-import { Employee } from 'src/employees/entities/employee.entity';
+import { EmployeeService } from 'src/employee/employee.service';
+import { Employee } from 'src/employee/entities/employee.entity';
 
 @Injectable()
 export class HierarchyService {

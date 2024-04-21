@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Employee } from './employees/entities/employee.entity';
+import { Employee } from './employee/entities/employee.entity';
 import { Module } from '@nestjs/common';
 import databaseConfig from './config/database.config';
 

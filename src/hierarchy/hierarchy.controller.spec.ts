@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HierarchyController } from './hierarchy.controller';
 import { HierarchyService } from './hierarchy.service';
-import { EmployeeService } from 'src/employees/employee.service';
-import { mockEmployeeService } from 'src/employees/employee.service.spec';
+import { EmployeeService } from 'src/employee/employee.service';
+import { mockEmployeeService } from 'src/employee/employee.service.spec';
 
 describe('HierarchyController', () => {
   let controller: HierarchyController;
