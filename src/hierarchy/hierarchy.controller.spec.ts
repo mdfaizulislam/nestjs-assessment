@@ -12,9 +12,9 @@ describe('HierarchyController', () => {
       controllers: [HierarchyController],
       providers: [HierarchyService, EmployeeService],
     })
-    .overrideProvider(EmployeeService)
-    .useValue(mockEmployeeService)
-    .compile();
+      .overrideProvider(EmployeeService)
+      .useValue(mockEmployeeService)
+      .compile();
 
     controller = module.get<HierarchyController>(HierarchyController);
   });

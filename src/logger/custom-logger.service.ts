@@ -1,3 +1,4 @@
+import customLoggerConfig from 'src/config/custom-logger.config';
 import * as winston from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
 /** Logging winston setup * */
@@ -6,12 +7,7 @@ export class CustomLoggerService {
   loggingFormat: winston.Logform.Format = null;
   createLoggerConfig: winston.LoggerOptions = null;
   constructor() {
-    this.dailyRotateFile = new DailyRotateFile({
-      filename: `logs/app_log-%DATE%.log`,
-      zippedArchive: false,
-      maxSize: '20m',
-      maxFiles: '1d',
-    });
+    this.dailyRotateFile = new DailyRotateFile(customLoggerConfig());
 
     this.loggingFormat = winston.format.printf(
       ({ level = 'info', message, timestamp, req, err, ...metadata }) => {

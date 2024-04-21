@@ -43,7 +43,10 @@ export class HierarchyService {
 
       return findHierarchy(id);
     } catch (error) {
-      this.logger.error('Error on finding hierarchy of employee id ' + id, error);
+      this.logger.error(
+        'Error on finding hierarchy of employee id ' + id,
+        error,
+      );
     }
   }
 

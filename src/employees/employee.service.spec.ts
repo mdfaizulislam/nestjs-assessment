@@ -111,12 +111,11 @@ export const mockData = [
 
 export const mockEmployeeService = {
   findAll: () => mockData,
-  findOne: (id) => mockData.find(md => md.id == id),
+  findOne: (id) => mockData.find((md) => md.id == id),
   findAllByPositionId: () => ['test'],
 };
 
 describe('EmployeesService', () => {
-
   let service: EmployeeService;
   let employeesRepository: Repository<Employee>;
   beforeEach(async () => {

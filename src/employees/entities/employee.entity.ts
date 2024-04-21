@@ -2,8 +2,8 @@ import { Table, Column, Model, PrimaryKey } from 'sequelize-typescript';
 
 @Table
 export class Employee extends Model {
-//   @Column
-//   id: number;
+  //   @Column
+  //   id: number;
 
   @Column
   name: string;

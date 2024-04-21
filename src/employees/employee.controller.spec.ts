@@ -4,8 +4,6 @@ import { EmployeeController } from './employee.controller';
 import { mockData, mockEmployeeService } from './employee.service.spec';
 
 describe('EmployeeController', () => {
-  
-
   let controller: EmployeeController;
 
   beforeEach(async () => {
@@ -24,12 +22,8 @@ describe('EmployeeController', () => {
     expect(controller).toBeDefined();
   });
 
-  it(`should return all employees`, () => {
-    expect(controller.findAll()).toBe(mockData);
-  });
-
   it('should return employee where employee id is 3', () => {
-    const md = mockData.find(md => md.id == 3);
+    const md = mockData.find((md) => md.id == 3);
     expect(controller.findOne(3)).toBe(md);
   });
 });

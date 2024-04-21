@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Logger } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Logger,
+} from '@nestjs/common';
 import { HierarchyService } from './hierarchy.service';
 
 @Controller('hierarchy')
@@ -12,5 +21,4 @@ export class HierarchyController {
   findOne(@Param('id') id: string) {
     return this.hierarchyService.findOne(+id);
   }
-
 }

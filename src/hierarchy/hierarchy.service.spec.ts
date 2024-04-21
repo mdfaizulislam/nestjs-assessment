@@ -8,7 +8,6 @@ describe('HierarchyService', () => {
   let employeeService: EmployeeService;
 
   beforeEach(async () => {
-
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         HierarchyService,

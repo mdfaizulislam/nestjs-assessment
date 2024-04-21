@@ -1,19 +1,20 @@
 import { Sequelize } from 'sequelize-typescript';
 import { Employee } from './employees/entities/employee.entity';
 import { Module } from '@nestjs/common';
-// import { databaseProviders } from './database.providers';
+import databaseConfig from './config/database.config';
 
 export const databaseProviders = [
   {
     provide: 'SEQUELIZE',
     useFactory: async () => {
+      const config = databaseConfig();
       const sequelize = new Sequelize({
         dialect: 'mysql',
-        host: 'localhost',
-        port: 3306,
-        username: 'root',
-        password: '',
-        database: 'test',
+        host: config.host,
+        port: config.port,
+        username: config.username,
+        password: config.password,
+        database: config.database,
       });
       sequelize.addModels([Employee]);
       await sequelize.sync();
