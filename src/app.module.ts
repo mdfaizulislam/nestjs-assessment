@@ -1,5 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { EmployeesModule } from './employee/employee.module';
+import { EmployeeModule } from './employee/employee.module';
 import { HierarchyModule } from './hierarchy/hierarchy.module';
 import { DatabaseModule } from './database.providers';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
@@ -10,7 +10,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    EmployeesModule,
+    EmployeeModule,
     HierarchyModule,
     DatabaseModule,
   ],

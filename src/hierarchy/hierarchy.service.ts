@@ -15,7 +15,9 @@ export class HierarchyService {
       let findHierarchy = async (employeeId): Promise<object[]> => {
         let employee: Employee = await this.employeeService.findOne(employeeId);
 
-        if (!(employee instanceof Employee)) return [];
+        if (!(employee instanceof Employee || employee['positionId'] > 0)) {
+          return [];
+        }
 
         // find lower position id
         let positionId: number = employee.positionId + 1;

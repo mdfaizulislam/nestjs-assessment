@@ -8,4 +8,8 @@ import { employeeProviders } from './employee.providers';
   providers: [EmployeeService, ...employeeProviders],
   exports: [EmployeeService, ...employeeProviders],
 })
-export class EmployeesModule {}
+export class EmployeeModule {
+  static forRoot(arg0: { isGlobal: boolean; }): import("@nestjs/common").Type<any> | import("@nestjs/common").DynamicModule | Promise<import("@nestjs/common").DynamicModule> | import("@nestjs/common").ForwardReference<any> {
+    throw new Error('Method not implemented.');
+  }
+}
