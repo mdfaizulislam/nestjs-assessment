@@ -4,6 +4,7 @@ import { HierarchyModule } from './hierarchy/hierarchy.module';
 import { DatabaseModule } from './database.providers';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     EmployeeModule,
     HierarchyModule,
     DatabaseModule,
+    AuthModule
   ],
 })
 export class AppModule implements NestModule {
