@@ -2,11 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HierarchyService } from './hierarchy.service';
 import { EmployeeService } from 'src/employee/employee.service';
 import { mockEmployeeService } from 'src/employee/employee.service.spec';
-import { EmployeeModule } from 'src/employee/employee.module';
-import { EMPLOYEE_RIPOSITORY } from 'src/employee/employee.constants';
-import { HierarchyModule } from './hierarchy.module';
-import { Module } from '@nestjs/common';
-import { Employee } from 'src/employee/entities/employee.entity';
 
 describe('HierarchyService', () => {
   let service: HierarchyService;

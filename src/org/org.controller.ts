@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-import { HierarchyService } from 'src/hierarchy/hierarchy.service';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { HierarchyService } from '../hierarchy/hierarchy.service';
 
 @Controller('org')
 export class OrgController {

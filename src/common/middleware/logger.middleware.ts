@@ -1,11 +1,9 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-// import { ENVIRONMENT_NAMES } from "src/common/configuration/backend.config";
-// import { ENV_VARS } from "src/common/constants/envs";
 import * as winston from 'winston';
 import { encryptObject } from './logger.encrypter';
-import envConfig from 'src/config/env.config';
-import loggerConfig from 'src/config/logger.config';
+import envConfig from '../../config/env.config';
+import loggerConfig from '../../config/logger.config';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {

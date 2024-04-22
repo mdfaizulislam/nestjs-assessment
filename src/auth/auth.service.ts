@@ -6,12 +6,12 @@ const sampleUsers = [
     {
         id: 1,
         username: 'userA',
-        password: 'abc123abc',
+        password: 'abc123abc'
     },
     {
         id: 2,
         username: 'userA',
-        password: 'xyz123xyz',
+        password: 'xyz123xyz'
     },
 ]
 
