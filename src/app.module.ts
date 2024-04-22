@@ -5,6 +5,7 @@ import { DatabaseModule } from './database.providers';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { OrgModule } from './org/org.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { AuthModule } from './auth/auth.module';
     EmployeeModule,
     HierarchyModule,
     DatabaseModule,
-    AuthModule
+    AuthModule,
+    OrgModule
   ],
 })
 export class AppModule implements NestModule {
@@ -23,7 +25,6 @@ export class AppModule implements NestModule {
     AppModule.port = configService.get<number>('PORT') || 3000;
   }
   configure(consumer: MiddlewareConsumer) {
-    // consumer.apply(JWTAuthMiddleware).forRoutes("*");
     consumer.apply(LoggerMiddleware).forRoutes('*');
   }
 }

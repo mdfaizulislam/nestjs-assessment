@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Logger,
+  Req,
 } from '@nestjs/common';
 import { HierarchyService } from './hierarchy.service';
 
@@ -18,7 +19,7 @@ export class HierarchyController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number, @Req() req: Request) {
     return this.hierarchyService.findOne(+id);
   }
 }
