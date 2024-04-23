@@ -13,9 +13,11 @@ describe('OrgController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [OrgController],
-      providers: [HierarchyService, EmployeeService]
-    }).overrideProvider(EmployeeService)
-    .useValue(mockEmployeeService).compile();
+      providers: [HierarchyService, EmployeeService],
+    })
+      .overrideProvider(EmployeeService)
+      .useValue(mockEmployeeService)
+      .compile();
 
     controller = module.get<OrgController>(OrgController);
   });

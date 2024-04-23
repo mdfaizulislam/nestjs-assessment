@@ -5,7 +5,7 @@ import { WinstonModule } from 'nest-winston';
 async function bootstrap() {
   const customLoggerService = new CustomLoggerService();
   const app = await NestFactory.create(AppModule, {
-    logger: WinstonModule.createLogger(customLoggerService.createLoggerConfig)
+    logger: WinstonModule.createLogger(customLoggerService.createLoggerConfig),
   });
 
   await app.listen(AppModule.port);

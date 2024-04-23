@@ -26,7 +26,7 @@ export class LoggerMiddleware implements NestMiddleware {
   }
 
   encryptRequestBodyOnProduction(body: object) {
-    console.log("env: ", this.config.NODE_ENV);
+    console.log('env: ', this.config.NODE_ENV);
     if (this.config.NODE_ENV === this.config.ENVS.PRODUCTION) {
       return encryptObject(this.loggerRSAKeyPublic, body);
     } else {

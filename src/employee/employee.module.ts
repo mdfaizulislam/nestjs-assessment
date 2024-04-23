@@ -6,5 +6,4 @@ import { employeeProviders } from './employee.providers';
   providers: [EmployeeService, ...employeeProviders],
   exports: [EmployeeService, ...employeeProviders],
 })
-export class EmployeeModule {
-}
+export class EmployeeModule {}

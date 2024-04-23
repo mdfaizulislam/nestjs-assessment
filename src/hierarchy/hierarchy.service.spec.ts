@@ -9,20 +9,20 @@ describe('HierarchyService', () => {
 
   let validateHierarchy = (parentPositionId, child: object[]): boolean => {
     let result: boolean = true;
-    if (child === null)
-        return true;
+    if (child === null) return true;
 
-    for(const c of child) {
+    for (const c of child) {
       const childPositionId: number = c['positionId'];
-      if (childPositionId == parentPositionId || childPositionId <= parentPositionId)
-      {
+      if (
+        childPositionId == parentPositionId ||
+        childPositionId <= parentPositionId
+      ) {
         return false;
       }
       const children = c['child'];
       result = result && validateHierarchy(childPositionId, children);
 
-      if (!result)
-      {
+      if (!result) {
         return false;
       }
     }
@@ -30,13 +30,15 @@ describe('HierarchyService', () => {
     return result;
   };
 
-
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [HierarchyService, {
-        provide: EmployeeService,
-        useValue: mockEmployeeService
-      }],
+      providers: [
+        HierarchyService,
+        {
+          provide: EmployeeService,
+          useValue: mockEmployeeService,
+        },
+      ],
     }).compile();
 
     service = module.get<HierarchyService>(HierarchyService);
@@ -51,9 +53,8 @@ describe('HierarchyService', () => {
     expect(employeeService).toBeDefined();
   });
 
-  
   it('hierarchy should be valid for employee id 1', async () => {
-    const employee =  mockEmployeeService.findOne(1);
+    const employee = mockEmployeeService.findOne(1);
     const id: number = employee['id'];
     const hierarchy = await service.findOne(id);
     const valid_result = validateHierarchy(employee.positionId, hierarchy);
@@ -62,43 +63,43 @@ describe('HierarchyService', () => {
 
   it('hierarchy should be valid for employee id 2', async () => {
     const employee = mockEmployeeService.findOne(2);
-    const hierarchy = await  service.findOne(employee.id);
+    const hierarchy = await service.findOne(employee.id);
     const valid_result = validateHierarchy(employee.positionId, hierarchy);
     expect(valid_result).toBe(true);
   });
 
   it('hierarchy should be valid for employee id 5', async () => {
     const employee = mockEmployeeService.findOne(17);
-    const hierarchy = await  service.findOne(employee.id);
+    const hierarchy = await service.findOne(employee.id);
     const valid_result = validateHierarchy(employee.positionId, hierarchy);
     expect(valid_result).toBe(true);
   });
 
   it('hierarchy should be valid for employee id 10', async () => {
     const employee = mockEmployeeService.findOne(17);
-    const hierarchy = await  service.findOne(employee.id);
+    const hierarchy = await service.findOne(employee.id);
     const valid_result = validateHierarchy(employee.positionId, hierarchy);
     expect(valid_result).toBe(true);
   });
 
   it('hierarchy should be valid for employee id 12', async () => {
     const employee = mockEmployeeService.findOne(17);
-    const hierarchy = await  service.findOne(employee.id);
+    const hierarchy = await service.findOne(employee.id);
     const valid_result = validateHierarchy(employee.positionId, hierarchy);
     expect(valid_result).toBe(true);
   });
 
   it('hierarchy should be valid for employee id 14', async () => {
     const employee = mockEmployeeService.findOne(17);
-    const hierarchy = await  service.findOne(employee.id);
+    const hierarchy = await service.findOne(employee.id);
     const valid_result = validateHierarchy(employee.positionId, hierarchy);
     expect(valid_result).toBe(true);
   });
 
   it('hierarchy should be valid for employee id 17', async () => {
     const employee = mockEmployeeService.findOne(17);
-    const hierarchy = await  service.findOne(employee.id);
+    const hierarchy = await service.findOne(employee.id);
     const valid_result = validateHierarchy(employee.positionId, hierarchy);
     expect(valid_result).toBe(true);
-  });  
+  });
 });

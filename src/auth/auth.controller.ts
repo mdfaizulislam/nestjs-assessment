@@ -7,11 +7,11 @@ import { Request } from 'express';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
-    @Post('login')
-    @UseGuards(LocalGuard)
-    login(@Req() req: Request) {
-        return req["user"];
-    }
+  @Post('login')
+  @UseGuards(LocalGuard)
+  login(@Req() req: Request) {
+    return req['user'];
+  }
 }

@@ -106,16 +106,18 @@ export const mockData = [
     name: 'Name JSE 7',
     positionId: 4,
     positionName: 'Junior Software Engineer',
-  }
+  },
 ];
 
 export const mockEmployeeService = {
   findAll: () => mockData,
-  findOne: (id: number) => {return mockData.find((md) => md['id'] === id)},
+  findOne: (id: number) => {
+    return mockData.find((md) => md['id'] === id);
+  },
   findAllByPositionId: (positionId: number) => {
     let filteredData = mockData.filter((md) => md['positionId'] === positionId);
     return filteredData;
-  }
+  },
 };
 
 describe('EmployeesService', () => {
@@ -154,14 +156,15 @@ describe('EmployeesService', () => {
     expect(service.findOne(10)).toBe(mockData[9]);
   });
 
-
   it('should return employe with 14', () => {
     expect(service.findOne(14)).toBe(mockData[13]);
   });
 
   it('should return all employees whose position id 2', async () => {
     let positionId = 2;
-    let index = (await service.findAllByPositionId(positionId)).findIndex((emp) => emp['positionId'] !== positionId);
+    let index = (await service.findAllByPositionId(positionId)).findIndex(
+      (emp) => emp['positionId'] !== positionId,
+    );
     expect(index).toBe(-1);
   });
 });

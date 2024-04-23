@@ -16,7 +16,7 @@ import { OrgModule } from './org/org.module';
     HierarchyModule,
     DatabaseModule,
     AuthModule,
-    OrgModule
+    OrgModule,
   ],
 })
 export class AppModule implements NestModule {
