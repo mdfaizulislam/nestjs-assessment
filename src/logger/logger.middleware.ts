@@ -1,14 +1,13 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, Logger, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import * as winston from 'winston';
 import { encryptObject } from './logger.encrypter';
-import envConfig from '../../config/env.config';
-import loggerConfig from '../../config/logger.config';
+import envConfig from '../config/env.config';
+import loggerConfig from '../config/logger-middleware.config';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
-  private winstonLoggerErrorLevel = this.createSingleLineLogger('error');
-  private winstonLoggerInfoLevel = this.createSingleLineLogger('info');
+  private logger = new Logger(LoggerMiddleware.name);
 
   private config = envConfig();
   private loggerRSAKeyPublic: string = loggerConfig().LOGGER_RSA_KEY_PUBLIC;
@@ -36,7 +35,7 @@ export class LoggerMiddleware implements NestMiddleware {
 
   use(request: Request, response: Response, next: NextFunction): void {
     if (this.config.NODE_ENV !== this.config.ENVS.DEVELOPER) {
-      const { ip, method, url, baseUrl, originalUrl } = request;
+      const { ip, method, originalUrl } = request;
       request.originalUrl;
       const userAgent = request.get('user-agent') || '';
 
@@ -46,8 +45,6 @@ export class LoggerMiddleware implements NestMiddleware {
 
         const basicRequestMetaInfo = {
           method,
-          // baseUrl,
-          // url,
           originalUrl,
           ip,
           statusCode,
@@ -62,14 +59,14 @@ export class LoggerMiddleware implements NestMiddleware {
             query: request.query,
             params: request.params,
             headers: request.headers,
-            // user: request.user,
+            user: request['user'],
           };
-          this.winstonLoggerErrorLevel.error({
+          this.logger.error({
             ...basicRequestMetaInfo,
             ...additionalRequestMetaInfo,
           });
         } else {
-          this.winstonLoggerInfoLevel.info(basicRequestMetaInfo);
+          this.logger.log(basicRequestMetaInfo);
         }
       });
     }
